@@ -38,6 +38,7 @@ function App() {
       })
       .catch(err => {
         alert(err.message)
+        setState({ ...state, is_loading: false })
       })
   }
 
