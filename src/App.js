@@ -8,7 +8,8 @@ function App() {
 
   const [state, setState] = useState({
     current_value: "",
-    data: null
+    data: null,
+    is_loading: false
   })
 
   const debounceValue = useDebounce(state.current_value)
@@ -27,10 +28,13 @@ function App() {
   }, [debounceValue])
 
   const handleFetchData = value => {
+
+    setState({ ...state, is_loading: true })
+
     Axios.get(`https://api.nationalize.io/?name=${value}`)
       .then(res => {
         console.log(res.data)
-        setState({ ...state, data: res.data })
+        setState({ ...state, data: res.data, is_loading: false })
       })
       .catch(err => {
         alert(err.message)
@@ -43,9 +47,9 @@ function App() {
       <h1>Predict the nationality of a name</h1>
       <h3>An API for predicting nationality from a name</h3>
 
-      <br/>
+      <br />
 
-      <input ref={inputRef} value={state.current_value} onChange={handleChanges} placeholder="Enter any name..."/>
+      <input ref={inputRef} value={state.current_value} onChange={handleChanges} placeholder="Enter any name..." />
 
       <table>
 
@@ -76,6 +80,7 @@ function App() {
 
       {state.data && state.data.country.length === 0 && <p id="no-countries">No countries found</p>}
 
+      {state.is_loading && <p>Loading data...</p>}
     </div>
   );
 }
