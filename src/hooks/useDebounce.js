@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 export default function useDebounce(value, time = 1000) {
+
     const [debounceValue, setDebounceValue] = useState(value)
 
     useEffect(() => {

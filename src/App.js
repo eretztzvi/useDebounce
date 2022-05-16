@@ -9,10 +9,11 @@ function App() {
   const [state, setState] = useState({
     current_value: "",
     data: null,
-    is_loading: false
+    is_loading: false,
+    debounce_time: 1000
   })
 
-  const debounceValue = useDebounce(state.current_value)
+  const debounceValue = useDebounce(state.current_value, state.debounce_time)
 
   const handleChanges = e => {
     setState({ ...state, current_value: e.target.value })
@@ -42,6 +43,10 @@ function App() {
       })
   }
 
+  const handleChangeDebounceTime = time => {
+    setState({ ...state, debounce_time: time })
+  }
+
   return (
     <div className="App">
 
@@ -50,7 +55,11 @@ function App() {
 
       <br />
 
+      <label>Name</label>
       <input ref={inputRef} value={state.current_value} onChange={handleChanges} placeholder="Enter any name..." />
+      <br />
+      <label>Debounce time</label>
+      <input type="number" value={state.debounce_time} onChange={e => handleChangeDebounceTime(e.target.value)} placeholder="Enter Debounce time in milliseconds..." />
 
       <table>
         <thead>
