@@ -12,12 +12,12 @@ code {
     monospace;
 }
 
-.App{
+.App {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 100px 0 0 0 ;
+  padding: 100px 0 0 0;
 }
 
 input {
@@ -27,7 +27,7 @@ input {
   font-size: 20px;
 }
 
-p{
+p {
   font-weight: bold;
   font-size: 20px;
 }
@@ -39,24 +39,21 @@ table {
   margin-top: 50px;
 }
 
-table td, table th {
+table td,
+table th {
   border: 1px solid #ddd;
   padding: 8px;
 }
 
-table tr:nth-child(even){background-color: #f2f2f2;}
+table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-table tr:hover {background-color: #ddd;}
+table tr:hover {
+  background-color: #ddd;
+}
 
-/* table th:nth-child(1) {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #04AA6D;
-  color: white;
-} */
-
-.regular{
+.regular {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
@@ -64,7 +61,11 @@ table tr:hover {background-color: #ddd;}
   color: white;
 }
 
-#no-countries{
+#no-countries {
   color: red;
   font-size: bold;
+}
+
+h1 {
+  margin: 0;
 }

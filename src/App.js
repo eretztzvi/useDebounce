@@ -40,7 +40,12 @@ function App() {
   return (
     <div className="App">
 
-      <input ref={inputRef} value={state.current_value} onChange={handleChanges} />
+      <h1>Predict the nationality of a name</h1>
+      <h3>An API for predicting nationality from a name</h3>
+
+      <br/>
+
+      <input ref={inputRef} value={state.current_value} onChange={handleChanges} placeholder="Enter any name..."/>
 
       <table>
 
@@ -57,8 +62,8 @@ function App() {
 
         <thead>
           <tr>
-            <th className="regular">country</th>
-            <th className="regular">prob</th>
+            <th className="regular">Country</th>
+            <th className="regular">Probability</th>
           </tr>
         </thead>
         <tbody>
