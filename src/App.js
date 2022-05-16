@@ -53,7 +53,6 @@ function App() {
       <input ref={inputRef} value={state.current_value} onChange={handleChanges} placeholder="Enter any name..." />
 
       <table>
-
         <thead>
           <tr>
             <th>Current Value</th>
@@ -64,6 +63,10 @@ function App() {
             <th>{debounceValue}</th>
           </tr>
         </thead>
+
+      </table>
+
+      <table>
 
         <thead>
           <tr>
