@@ -1,5 +1,3 @@
-# Predict the nationality of a name
-
 # useDebounce
 
 A React custom hook - useDebounce for delaying an invocation of a function
