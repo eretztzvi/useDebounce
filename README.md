@@ -1,12 +1,17 @@
-# Getting Started with Create React App
+# useDebounce
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React custom hook - useDebounce for delaying an invocation of a function
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+### `const debounceValue = useDebounce(value, time)`
+
+value - required 
+time - optional, the default value is set to 1000 milliseconds
+
+
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
