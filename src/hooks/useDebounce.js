@@ -12,7 +12,7 @@ export default function useDebounce(value, time = 1000) {
         }, time)
 
         return () => {
-            console.log('clear timer')
+            // console.log('clear timer')
             clearTimeout(timer)
         }
     }, [value])

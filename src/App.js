@@ -3,6 +3,7 @@ import useDebounce from "./hooks/useDebounce";
 import Axios from 'axios'
 import { ThemeContext } from "./contexts/colorContext";
 import { SearchWordsContext } from "./contexts/searchContext";
+import Timer from "./components/Timer";
 
 function App() {
 
@@ -15,13 +16,14 @@ function App() {
     current_value: "",
     data: null,
     is_loading: false,
-    debounce_time: 1000
+    debounce_time: 1000,
+    active_timer: false
   })
 
   const debounceValue = useDebounce(state.current_value, state.debounce_time)
 
   const handleChanges = e => {
-    setState({ ...state, current_value: e.target.value })
+    setState({ ...state, current_value: e.target.value, active_timer: !state.active_timer, debounce_time: state.debounce_time })
   }
 
   useEffect(() => {
@@ -32,6 +34,7 @@ function App() {
     if (debounceValue) handleFetchData(debounceValue)
     if (!debounceValue) setState({ ...state, data: null })
   }, [debounceValue])
+
 
   const handleFetchData = value => {
 
@@ -50,7 +53,14 @@ function App() {
   }
 
   const handleChangeDebounceTime = time => {
-    setState({ ...state, debounce_time: time })
+    setState({ ...state, debounce_time: +time })
+  }
+
+  const handleInactiveTimer = () => {
+    setState({
+      ...state,
+      active_timer: false
+    })
   }
 
   return (
@@ -66,6 +76,10 @@ function App() {
 
       <label>Name</label>
       <input ref={inputRef} value={state.current_value} onChange={handleChanges} placeholder="Enter any name..." />
+      <br />
+
+      <Timer active={state.active_timer} milliseconds={state.debounce_time} handleInactiveTimer={handleInactiveTimer} />
+
       <br />
       <label>Debounce time</label>
       <input type="number" value={state.debounce_time} onChange={e => handleChangeDebounceTime(e.target.value)} placeholder="Enter Debounce time in milliseconds..." />
@@ -108,9 +122,9 @@ function App() {
         <p>-----------------------------</p>
         <p>Last searches:</p>
         <ol>
-          {words.search_words?.map(word => <li key={word}>{word}</li>)}
+          {words.search_words?.map((word, index) => <li key={index}>{word}</li>)}
         </ol>
-        <button onClick={() => words.clear()}>Clear Search History</button>
+        <button className={theme.background === "black" ? "clearHistoryBlack" : "clearHistory"} onClick={() => words.clear()}>Clear Search History</button>
       </div>
     </div>
   );
