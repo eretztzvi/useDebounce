@@ -1,10 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import useDebounce from "./hooks/useDebounce";
 import Axios from 'axios'
+import { ThemeContext } from "./contexts/colorContext";
+import { SearchWordsContext } from "./contexts/searchContext";
 
 function App() {
 
   const inputRef = useRef()
+
+  const theme = useContext(ThemeContext)
+  const words = useContext(SearchWordsContext)
 
   const [state, setState] = useState({
     current_value: "",
@@ -32,9 +37,10 @@ function App() {
 
     setState({ ...state, is_loading: true })
 
+    words.add_word(value)
+
     Axios.get(`https://api.nationalize.io/?name=${value}`)
       .then(res => {
-        console.log(res.data)
         setState({ ...state, data: res.data, is_loading: false })
       })
       .catch(err => {
@@ -48,8 +54,11 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className={theme.background === "black" ? "AppBlack" : "App"}>
 
+      <div className="toggleBox">
+        <button onClick={() => theme.onChangeBackground('black')}>{theme.background === "black" ? "🌕" : "🌚"}</button>
+      </div>
       <h1>Predict the nationality of a name</h1>
       <h3>An API for predicting nationality from a name</h3>
 
@@ -94,6 +103,15 @@ function App() {
       {state.data && state.data.country.length === 0 && <p id="no-countries">No countries found</p>}
 
       {state.is_loading && <p>Loading data...</p>}
+
+      <div>
+        <p>-----------------------------</p>
+        <p>Last searches:</p>
+        <ol>
+          {words.search_words?.map(word => <li key={word}>{word}</li>)}
+        </ol>
+        <button onClick={() => words.clear()}>Clear Search History</button>
+      </div>
     </div>
   );
 }
